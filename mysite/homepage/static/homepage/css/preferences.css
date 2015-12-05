@@ -1,0 +1,31 @@
+#title {
+	text-align: center;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+#homepage_link {
+	position: absolute;
+	font-size: 13px;
+	margin-top: 10px;
+}
+
+.row-eq-height {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+}
+
+.delete_widget_btn {
+	color: red;
+	background-color: white;
+	border: none;
+}
+
+.delete_tab_btn {
+	color: red;
+	background-color: white;
+	border: none;
+}
+

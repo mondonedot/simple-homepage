@@ -1,0 +1,153 @@
+<!DOCTYPE HTML>
+<html lang="en">	
+	<head>
+		<title>Hello!</title>
+
+		{% load staticfiles %}
+		{% load homepage_extras %}
+		<meta charset="utf-8">
+		
+		<!-- Load Bootstrap -->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+		<!-- Load other css and js files -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script src="{% static 'homepage/js/main.js' %}"></script>
+		<link rel="stylesheet" href="{% static 'homepage/css/main.css' %}"/>
+
+	</head>
+
+	<body style="background-color: #{{ preferences.all.0.primary_color }}">
+		<div class="container-fluid">
+			<h1 class="panel" id="page-title" style="background-color: #{{ preferences.all.0.secondary_color }}">{{ preferences.all.0.banner_text }}</h1>
+
+			<!-- Header Boxes -->
+			<div class="row-fluid row-eq-height" height="300px">
+				<div class="col-lg-3" style="border:none; border-width:1px">
+					<div style="text-align:center; padding-top:50px">
+						<script width='100%' height='100%' language="JavaScript">var clocksize='200';</script>
+						<script src="http://gheos.net/js/clock.js"></script>
+					</div>
+				</div>
+
+				<!-- Notepad Column -->
+				<div class="col-lg-6" height="300px">
+					<ul class="nav nav-tabs">
+						{% for tab in notepad_data %}
+							{% if forloop.first %}
+								<li id="{{notepad_data.all.0.tab_name}}" class="tab_btn active"><a data-toggle="tab" href="#tabData{{forloop.counter}}">{{notepad_data.all.0.tab_name}}</a></li>
+							{% else %}
+								<li id="{{tab.tab_name}}" class="tab_btn"><a data-toggle="tab" href="#tabData{{forloop.counter}}">{{tab.tab_name}}</a></li>
+							{% endif %}
+						{% endfor %}
+						<div id="save_notification" class="well well-sm">Saved!</div>
+					</ul>
+
+					<div class="tab-content">
+						{% for tab in notepad_data %}
+							{% if forloop.first %}
+								<div id="tabData{{forloop.counter}}" class="tab-pane fade in active">
+									<textarea class="form-control" rows="12">{{notepad_data.all.0.tab_data}}</textarea>
+								</div>
+							{% else %}
+								<div id="tabData{{forloop.counter}}" class="tab-pane fade in">
+									<textarea class="form-control" rows="12">{{tab.tab_data}}</textarea>
+								</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+					<button type="submit" class="btn btn-default" id="save_button" value="{{notepad_data.all.0.tab_name}}">Save</button>
+				</div>
+				<!-- End Notepad Section -->
+
+
+				<div class="col-lg-3" style="background-color: #e3e9ff">
+					<iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=timmondonedo%40gmail.com&amp;color=%2329527A&amp;src=en.usa%23holiday%40group.v.calendar.google.com&amp;color=%23853104&amp;ctz=America%2FChicago" 
+					style="border-width:0px" width="100%" height="300px" frameborder="0" scrolling="no">
+					</iframe>
+				</div>
+			</div> <!-- End Header Boxes -->
+
+			<!-- Google Search Bar -->
+			<form class="form-horizontal" id="google_search" method="get" action="https://google.com/search" target="_blank">
+					<div class="col-md-2" style="text-align: right">
+						<img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" style="height:30px; width:90px">
+					</div>
+					<div class="col-md-8">
+						<input name="q" value="" type="text" class="form-control">
+					</div>
+					<div class="col-md-2" style="text-align: left">
+						<button type="submit" class="btn btn-default">Google Search</button>
+					</div>
+			</form>
+
+			<!-- Bookmarks -->
+			<div class="panel" style="background-color: #{{ preferences.all.0.secondary_color }}">
+				<div class="panel-heading" id="bookmark-panel">Bookmarks<div id="bookmark_toggle_panel" class="toggle_panel">Hide</div></div>
+				<div class="panel-body" id="bookmark-panel-body"> 
+					<!-- Display Bookmarks -->
+					{% for bookmark in bookmark_list %}	
+						<button class="delete_bookmark_btn" value="{{bookmark.pk}}" type="hidden">X</button>
+						<img src="{{bookmark.bookmark_url}}/favicon.ico"/>
+						<a class="bookmark_text" target="_blank" href="{{bookmark.bookmark_url}}">{{bookmark.bookmark_name}}</a>
+					{% endfor %}
+					<button id="delete_bookmark_toggle" class="btn btn-default" value="show">Delete Bookmarks</button>
+			
+					<!-- Add Bookmarks -->
+					<h3 id="add_bookmark_text">Add Bookmarks</h3>
+					<form id="add_bookmark" class="form-horizontal" method="post" action="/homepage/modify_bookmarks/">
+						<div class="form-group col-md-12">
+							<label for="bookmark_name">Bookmark Name</label>
+							<input class="form-control" name="bookmark_name" id="bookmark_name" type="text">
+						</div>
+						<div class="form-group col-md-12">
+							<label for="bookmark_url">URL</label>
+							<input class="form-control" name="bookmark_url" id="bookmark_url" type="text">
+						</div>
+						<div class="form-group col-md-2">
+							<button class="btn btn-default" type="submit">Submit</button>
+						</div>
+						<input name="bookmark_request" value="add" type="hidden">
+					</form>
+				</div>
+			</div> <!-- End Bookmarks -->
+
+			<!-- Widgets -->
+			<div class="panel" style="background-color: #{{ preferences.all.0.secondary_color }}">
+				<div class="panel-heading" id="widget-panel">Your widgets<div id="widget_toggle_panel" class="toggle_panel">Hide</div></div>
+				<div class="panel-body" id="widget-panel-body">
+					{% for widget in widget_list %}
+						<div class=col-md-4>
+							{% autoescape off %}
+							{{ widget.widget_code }}
+							{% endautoescape %}
+						</div>
+					{% endfor %}
+
+<!--
+					<div class=col-md-4>
+						<div height="300px">
+							<a href="http://www.accuweather.com/en/us/new-york-ny/10007/weather-forecast/349727" class="aw-widget-legal"></a>
+							<div id="awcc1447923707318" class="aw-widget-current"  data-locationkey="" data-unit="f" data-language="en-us" data-useip="true" data-uid="awcc1447923707318"></div><script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>
+						</div>
+					</div>
+					<div class=col-md-4>
+						<iframe src=http://widgetscode.com/wc/sci/all?skin=blk1 style='margin:0;' height="300px" width="100%" frameborder=0></iframe>
+					</div>
+					<div class=col-md-4>
+						<iframe width="100%" height="300px"src="{% static 'homepage/other.html' %}"></iframe>
+					</div>
+-->
+				</div>
+			</div>
+
+			<div id="preferences_link">
+				<a href="/homepage/preferences/">Edit Preferences</a>
+			</div>
+		</div> <!-- End body container -->
+
+	</body>
+</html>

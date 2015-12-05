@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<title>Hello!</title>
+
+		{% load staticfiles %}
+		{% load homepage_extras %}
+		<meta charset="utf-8">
+		
+		<!-- Load Bootstrap -->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+		<!-- Load other css and js files -->
+			<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+			<script src="{% static 'homepage/js/preferences.js' %}"></script>
+			<link rel="stylesheet" href="{% static 'homepage/css/preferences.css' %}"/>
+	</head>
+
+	<body>
+		<div class="container-fluid">
+			<div class="well">
+				<div id="homepage_link">
+					<a href="/homepage/"> &#60 Back to homepage</a>
+				</div>
+				<div id="title">
+					Your Preferences
+				</div>
+			</div>
+
+			<h4>Colors and Text</h4>
+			<form id="colors_and_text" method="post" action="/homepage/modify_preferences/">
+				<label for="primary_color">Primary Color</label>
+				<input class="form-control" name="primary_color" id="primary_color" type="text" value="{{preferences.all.0.primary_color}}">
+				<label for="secondary_color">Secondary Color</label>
+				<input class="form-control" name="secondary_color" id="secondary_color" type="text" value="{{preferences.all.0.secondary_color}}">
+				<label for="banner_text">Banner Text</label>
+				<input class="form-control" name="banner_text" id="banner_text" type="text" value="{{preferences.all.0.banner_text}}">
+				<input type="hidden" name="save_preferences" value="colors_and_text">
+				<div class="form-group col-md-12" style="margin-left:-15px; padding-top:5px">
+				<button id="color_and_text_btn" class="btn btn-default" type="submit">Save</button>
+			</form>
+
+
+			<h4 style="padding-top: 10px">Notepad</h4>
+			<h4>Create Tabs</h4>
+			<form id="create_tab" method="post" action="/homepage/modify_preferences/">
+				<label for="tab_name">Tab Name</label>
+				<input class="form-control" name="tab_name" id="tab_name" type="text">
+				<input type="hidden" name="save_preferences" value="create_tab">
+				<div class="form-group col-md-12" style="margin-left:-15px; padding-top:5px">
+
+				<button id="create_tab_btn" class="btn btn-default" type="submit">Create</button>
+			</form>
+			<h4>Delete Tabs</h4>
+			<ul>
+				{% for tab in notepad_data%}
+					<li>{{ tab.tab_name}}
+						<button class="delete_tab_btn" value="{{tab.pk}}">X</button>
+					</li>
+				{% endfor %}
+			</ul>
+
+
+			<h4 style="padding-top: 10px">Widgets</h4>
+			<h4>Create Widgets</h4>
+			<form id="create_widget" method="post" action="/homepage/modify_preferences/">
+				<label for="widget_name">Widget Name</label>
+				<input class="form-control" name="widget_name" id="widget_name" type="text">
+				<label for="widget_code">Widget Code</label>
+				<textarea class="form-control" id="widget_code" name="widget_code" rows="12"></textarea>
+
+				<input type="hidden" name="save_preferences" value="create_widget">
+				<div class="form-group col-md-12" style="margin-left:-15px; padding-top:5px">
+
+				<button id="create_widget_btn" class="btn btn-default" type="submit">Create</button>
+			</form>
+
+			<h4>Delete Widgets</h4>
+			<ul>
+				{% for widget in widget_list%}
+					<li>{{ widget.widget_name}}
+						<button class="delete_widget_btn" value="{{widget.pk}}">X</button>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>	
+	</body>
+
+</html>

@@ -1,0 +1,100 @@
+body {
+	/*background-image: url('http://img0.mxstatic.com/wallpapers/86d5609d30e8d750f7e6f46c40a70bc4_large.jpeg'); */
+	/*background-color: #d3d3d3; /*grey*/
+	/*background-color: #ffcc80;*/
+	background-repeat: no-repeat;
+    background-attachment: fixed;
+	z-index: -1;
+}
+
+#google_search {
+	text-align: center;
+	padding-top: 50px;
+	padding-bottom: 100px;
+}
+
+.row-eq-height {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+}
+
+#page-title {
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+/*.panel {
+	background-color: #99ccff;
+}*/
+
+.panel-body {
+	background-color: white;
+}
+
+#bookmark-panel {
+	text-align: center;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.bookmark_text {
+	margin-right: 30px;
+}
+
+.delete_bookmark_btn {
+	color: red;
+}
+
+#widget-panel {
+	text-align: center;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+#delete_bookmark_toggle {
+	margin-right: 30px;
+	float: right;
+}
+
+.nav-tabs {
+	background-color: #e3e9ff;
+}
+
+#save_button {
+	display: block;
+	width: 100%;
+}
+
+.toggle_panel {
+	float: right;
+	font-size: 12px;
+	font-weight: 300;
+	cursor: pointer;
+}
+.toggle_panel:hover {
+	text-decoration: underline;
+}
+
+#save_notification {
+	position: absolute;
+	right: 2.5%;
+	background-color: #9FFF9F;
+}
+
+#preferences_link {
+	float: right;
+	margin-right: 5px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	padding: 5px 5px 5px 5px;
+	border-radius: 25px;
+	background-color: white;
+	font-color: black;
+}
+
+iframe {
+	border: none;
+}
